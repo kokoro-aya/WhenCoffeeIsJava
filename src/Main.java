@@ -7,6 +7,14 @@ import shapes.Shape;
 import shapes.Square;
 
 public class Main {
+
+    public static int intFromNat(Nat nat) {
+      return new Match<Nat, Integer>(nat)
+              .is(O.class, (O o) -> 0)
+              .is(S.class, (S s) -> 1 + intFromNat(s.prev()))
+              .execute();
+    }
+
     public static void main(String[] args) {
         new When<Nat>(new S(new S(new O())))
                 .is(S.class, (S s) -> {
@@ -38,5 +46,16 @@ public class Main {
                   System.out.println("Shape");
                 })
                 .execute();
+
+        Nat six = new S(new S(new S(new S(new S(new S(new O()))))));
+        System.out.println(intFromNat(six));
+
+        String shouldBeCircle = new Match<Shape, String>(new Circle())
+                .is(Circle.class, (Circle circle) -> "Circle")
+                .is(Square.class, (Square square) -> "Square")
+                .otherwise((Shape shape) -> "Shape")
+                .execute();
+        System.out.println(shouldBeCircle);
+
     }
 }
