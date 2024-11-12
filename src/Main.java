@@ -16,6 +16,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+        // When Statements
+
         new When<Nat>(new S(new S(new O())))
                 .is(S.class, (S s) -> {
                   System.out.println(s.prev());
@@ -47,6 +50,8 @@ public class Main {
                 })
                 .execute();
 
+        // Match Expressions
+
         Nat six = new S(new S(new S(new S(new S(new S(new O()))))));
         System.out.println(intFromNat(six));
 
@@ -57,5 +62,21 @@ public class Main {
                 .execute();
         System.out.println(shouldBeCircle);
 
+        // Switch Expressions
+
+
+        String sevenForSix = new Switch<Integer, String>(6)
+                .is(2, i -> "two")
+                .is(3, i -> "three")
+                .otherwise(i -> String.valueOf((i + 1)))
+                .execute();
+      System.out.println(sevenForSix);
+
+        String literalSix = new Switch<Integer, String>(6)
+                .is(8, i -> "eight")
+                .is(7, i -> "seven")
+                .is(6, i -> "six")
+                .execute();
+      System.out.println(literalSix);
     }
 }
