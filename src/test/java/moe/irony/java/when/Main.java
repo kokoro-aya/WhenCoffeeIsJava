@@ -1,10 +1,14 @@
-import nat.Nat;
-import nat.O;
-import nat.S;
-import shapes.Circle;
-import shapes.Rectangle;
-import shapes.Shape;
-import shapes.Square;
+package moe.irony.java.when;
+
+import moe.irony.java.when.base.Match;
+import moe.irony.java.when.base.When;
+import moe.irony.java.when.nat.Nat;
+import moe.irony.java.when.nat.O;
+import moe.irony.java.when.nat.S;
+import moe.irony.java.when.shapes.Circle;
+import moe.irony.java.when.shapes.Rectangle;
+import moe.irony.java.when.shapes.Shape;
+import moe.irony.java.when.shapes.Square;
 
 public class Main {
 
@@ -50,9 +54,12 @@ public class Main {
                 })
                 .execute();
 
+        System.out.println();
+
         // Match Expressions
 
         Nat six = new S(new S(new S(new S(new S(new S(new O()))))));
+        System.out.print("Should be six:\t");
         System.out.println(intFromNat(six));
 
         String shouldBeCircle = new Match<Shape, String>(new Circle())
@@ -60,23 +67,24 @@ public class Main {
                 .is(Square.class, (Square square) -> "Square")
                 .otherwise((Shape shape) -> "Shape")
                 .execute();
+        System.out.print("Should be circle:\t");
         System.out.println(shouldBeCircle);
 
         // Switch Expressions
 
 
-        String sevenForSix = new Switch<Integer, String>(6)
-                .is(2, i -> "two")
-                .is(3, i -> "three")
-                .otherwise(i -> String.valueOf((i + 1)))
-                .execute();
-      System.out.println(sevenForSix);
-
-        String literalSix = new Switch<Integer, String>(6)
-                .is(8, i -> "eight")
-                .is(7, i -> "seven")
-                .is(6, i -> "six")
-                .execute();
-      System.out.println(literalSix);
+//        String sevenForSix = new Switch<Integer, String>(6)
+//                .is(2, i -> "two")
+//                .is(3, i -> "three")
+//                .otherwise(i -> String.valueOf((i + 1)))
+//                .execute();
+//        System.out.println(sevenForSix);
+//
+//        String literalSix = new Switch<Integer, String>(6)
+//                .is(8, i -> "eight")
+//                .is(7, i -> "seven")
+//                .is(6, i -> "six")
+//                .execute();
+//        System.out.println(literalSix);
     }
 }

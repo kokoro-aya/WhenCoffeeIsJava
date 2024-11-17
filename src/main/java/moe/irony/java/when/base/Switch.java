@@ -1,6 +1,7 @@
+package moe.irony.java.when.base;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class Switch<T, R> {

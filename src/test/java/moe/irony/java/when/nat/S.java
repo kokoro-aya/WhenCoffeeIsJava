@@ -1,4 +1,4 @@
-package nat;
+package moe.irony.java.when.nat;
 
 public class S extends Nat {
 
