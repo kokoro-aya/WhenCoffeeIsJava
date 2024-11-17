@@ -1,4 +1,4 @@
-package moe.irony.java.when.base;
+package moe.irony.java.when.base.interfaces;
 
 @FunctionalInterface
 public interface PentaFunction<T, U, V, W, X, R> {

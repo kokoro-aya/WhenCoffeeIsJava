@@ -1,4 +1,4 @@
-package moe.irony.java.when.base;
+package moe.irony.java.when.base.interfaces;
 
 @FunctionalInterface
 public interface OctaFunction<T, U, V, W, X, Y, Z, A, R> {
