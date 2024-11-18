@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.iml" filepath="$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.test.iml" filepath="$PROJECT_DIR$/.idea/modules/WhenCoffeeIsJava.test.iml" />
     </modules>
   </component>
 </project>
