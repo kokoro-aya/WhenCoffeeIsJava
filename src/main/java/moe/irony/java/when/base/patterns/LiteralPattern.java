@@ -3,6 +3,7 @@ package moe.irony.java.when.base.patterns;
 import moe.irony.java.when.base.PatternVisitor;
 import moe.irony.java.when.base.chain.ChainedResult;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -14,6 +15,11 @@ public class LiteralPattern<T, R> implements Pattern<T, R> {
 
   public LiteralPattern(T literal, Function<T, R> function) {
     this.literals = Collections.singletonList(literal);
+    this.function = function;
+  }
+
+  public LiteralPattern(T[] literals, Function<T, R> function) {
+    this.literals = Arrays.asList(literals);
     this.function = function;
   }
 

@@ -50,6 +50,17 @@ public class MatchExpressionTests {
   }
 
   @Test
+  public void testMatchExpressionForMultipleInts() {
+    String actual = new Match<Integer, String>(6)
+            .is(1, (one) -> "ONE")
+            .isAmong(new Integer[]{ 2, 4, 6, 8 }, (x) -> "" + (x / 2))
+            .is(9, (two) -> "nine")
+            .execute();
+
+    assertEquals("3", actual);
+  }
+
+  @Test
   public void testMatchExpressionForNullableStrings() {
     Boolean actual = new Match<String, Boolean>(null)
             .isNull(() -> false)

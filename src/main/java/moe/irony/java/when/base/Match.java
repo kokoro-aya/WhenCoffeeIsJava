@@ -28,6 +28,11 @@ public class Match<T, R> {
     return this;
   }
 
+  public Match<T, R> isAmong(T[] values, Function<T, R> fn) {
+    this.multiArmPattern.addPattern(new LiteralPattern<>(values, fn));
+    return this;
+  }
+
   public Match<T, R> isNull(Supplier<R> fn) {
     this.multiArmPattern.addPattern(new NullPattern<>(fn));
     return this;
