@@ -56,6 +56,7 @@ public class PatternMatcher<T, R> implements  PatternVisitor<T, R> {
   }
 
   @Override
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public ChainedResult<R> visit(MultiArmPattern<T, R> arms) {
 
     List<Pattern<? extends T, R>> patterns = arms.getPatterns();

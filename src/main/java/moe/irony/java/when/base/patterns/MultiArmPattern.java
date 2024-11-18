@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MultiArmPattern<T, R> implements Pattern<T, R> {
 
-  private List<Pattern<? extends T, R>> patterns;
+  private final List<Pattern<? extends T, R>> patterns;
 
   public MultiArmPattern() {
     this.patterns = new ArrayList<>();
