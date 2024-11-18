@@ -36,4 +36,37 @@ public class MatchExpressionTests {
 
     assertEquals(CIRCLE, actual);
   }
+
+  @Test
+  public void testMatchExpressionForIntLiterals() {
+    int actual = new Match<Integer, Integer>(3)
+            .is(1, (one) -> one + 1)
+            .is(2, (two) -> two * 2)
+            .is(3, (three) -> three * three * three)
+            .otherwise((num) -> -1)
+            .execute();
+
+    assertEquals(27, actual);
+  }
+
+  @Test
+  public void testMatchExpressionForMultipleInts() {
+    String actual = new Match<Integer, String>(6)
+            .is(1, (one) -> "ONE")
+            .isAmong(new Integer[]{ 2, 4, 6, 8 }, (x) -> "" + (x / 2))
+            .is(9, (two) -> "nine")
+            .execute();
+
+    assertEquals("3", actual);
+  }
+
+  @Test
+  public void testMatchExpressionForNullableStrings() {
+    Boolean actual = new Match<String, Boolean>(null)
+            .isNull(() -> false)
+            .otherwise((value) -> true)
+            .execute();
+
+    assertEquals(false, actual);
+  }
 }
