@@ -1,14 +1,16 @@
 package moe.irony.java.when.base;
 
-import java.util.HashMap;
-import java.util.Map;
+import moe.irony.java.when.base.chain.ChainedResult;
+import moe.irony.java.when.base.chain.Result;
+import moe.irony.java.when.base.patterns.*;
+
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Match<T, R> {
 
-  private final Map<Class<? extends T>, Function<? extends T, R>> arms = new HashMap<>();
 
-  private Function<T, R> defaultArm = null;
+  private MultiArmPattern<T, R> multiArmPattern = new MultiArmPattern<>();
 
   private final T valueToMatch;
 
@@ -16,24 +18,36 @@ public class Match<T, R> {
     this.valueToMatch = object;
   }
 
-  public <U extends T> Match<T, R> is(Class<U> clazz, Function<? extends U, R> fn) {
-    this.arms.put(clazz, fn);
+  public <U extends T> Match<T, R> is(Class<U> clazz, Function<U, R> fn) {
+    this.multiArmPattern.addPattern(new ClassPattern<>(clazz, fn));
+    return this;
+  }
+
+  public Match<T, R> is(T value, Function<T, R> fn) {
+    this.multiArmPattern.addPattern(new LiteralPattern<>(value, fn));
+    return this;
+  }
+
+  public Match<T, R> isNull(Supplier<R> fn) {
+    this.multiArmPattern.addPattern(new NullPattern<>(fn));
     return this;
   }
 
   public Match<T, R> otherwise(Function<T, R> fn) {
-    this.defaultArm = fn;
+    this.multiArmPattern.addPattern(new OtherwisePattern<>(fn));
     return this;
   }
 
   public R execute() {
-    for (Class<? extends T> clazz : this.arms.keySet()) {
-      Function<T, R> fn = (Function<T, R>) this.arms.get(clazz);
-      if (clazz.isInstance(this.valueToMatch)) {
-        return fn.apply(this.valueToMatch);
-      }
+    PatternVisitor<T, R> visitor = new PatternMatcher<>(this.valueToMatch);
+
+    ChainedResult<R> result = this.multiArmPattern.accept(visitor);
+
+    if (result instanceof Result) {
+      return ((Result<R>) result).getResult();
+    } else {
+      return null;
     }
-    return this.defaultArm.apply(this.valueToMatch);
   }
 
 }
