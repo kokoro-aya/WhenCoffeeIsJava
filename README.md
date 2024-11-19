@@ -1,5 +1,8 @@
 # When the coffee is Java
 
+[![](https://img.shields.io/maven-central/v/moe.irony.java.when/when-coffee-is-java
+)](https://central.sonatype.com/artifact/moe.irony.java.when/when-coffee-is-java)
+
 A simple Java-8 pattern matching library to give Java language the similar
 feature of `when` expressions/statements of Kotlin.
 
