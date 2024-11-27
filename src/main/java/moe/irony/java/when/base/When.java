@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ * @deprecated Use the unified `Match` interface instead
+ */
+@Deprecated
 public class When<T> {
 
     private final Map<Class<? extends T>, Consumer<? extends T>> arms = new HashMap<>();

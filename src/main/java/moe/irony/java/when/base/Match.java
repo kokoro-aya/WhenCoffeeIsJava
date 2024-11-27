@@ -3,6 +3,8 @@ package moe.irony.java.when.base;
 import moe.irony.java.when.base.chain.ChainedResult;
 import moe.irony.java.when.base.chain.Result;
 import moe.irony.java.when.base.patterns.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -10,11 +12,11 @@ import java.util.function.Supplier;
 public class Match<T, R> {
 
 
-  private MultiArmPattern<T, R> multiArmPattern = new MultiArmPattern<>();
+  private final MultiArmPattern<T, R> multiArmPattern = new MultiArmPattern<>();
 
-  private final T valueToMatch;
+  private final @Nullable T valueToMatch;
 
-  public Match(T object) {
+  public Match(@Nullable T object) {
     this.valueToMatch = object;
   }
 
@@ -23,7 +25,7 @@ public class Match<T, R> {
     return this;
   }
 
-  public Match<T, R> is(T value, Function<T, R> fn) {
+  public Match<T, R> is(@NotNull T value, Function<T, R> fn) {
     this.multiArmPattern.addPattern(new LiteralPattern<>(value, fn));
     return this;
   }

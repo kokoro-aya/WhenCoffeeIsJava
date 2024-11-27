@@ -69,4 +69,15 @@ public class MatchExpressionTests {
 
     assertEquals(false, actual);
   }
+
+  @Test
+  public void testMatchExpressionForLaterNulls() {
+    Boolean actual = new Match<String, Boolean>(null)
+            .is("Five", (five) -> true)
+            .isNull(() -> false)
+            .otherwise((value) -> true)
+            .execute();
+
+    assertEquals(false, actual);
+  }
 }

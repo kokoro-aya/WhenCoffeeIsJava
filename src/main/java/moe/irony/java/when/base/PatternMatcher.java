@@ -4,19 +4,25 @@ import moe.irony.java.when.base.chain.ChainedResult;
 import moe.irony.java.when.base.chain.Empty;
 import moe.irony.java.when.base.chain.Result;
 import moe.irony.java.when.base.patterns.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PatternMatcher<T, R> implements  PatternVisitor<T, R> {
   
-  private T matchedValue;
+  private @Nullable T matchedValue;
   
-  public PatternMatcher(T matchedValue) {
+  public PatternMatcher(@Nullable T matchedValue) {
     this.matchedValue = matchedValue;
   }
   
   @Override
   public ChainedResult<R> visit(ClassPattern<T, R> pattern) {
+    if (matchedValue == null) {
+      return new Empty<>();
+    }
+
     if (matchedValue.getClass().equals(pattern.getClazz())) {
       return new Result<>(pattern.getFunction().apply(matchedValue));
     }
@@ -38,7 +44,7 @@ public class PatternMatcher<T, R> implements  PatternVisitor<T, R> {
   public ChainedResult<R> visit(LiteralPattern<T, R> pattern) {
     List<T> literals = pattern.getLiterals();
     for (T literal : literals) {
-      if (this.matchedValue.equals(literal)) {
+      if (Objects.equals(this.matchedValue, literal)) {
         return new Result<>(pattern.getFunction().apply(this.matchedValue));
       }
     }
@@ -78,11 +84,6 @@ public class PatternMatcher<T, R> implements  PatternVisitor<T, R> {
 
   @Override
   public ChainedResult<R> visit(RangePattern<T, R> pattern) {
-    return null;
-  }
-
-  @Override
-  public ChainedResult<R> visit(RawPattern<T, R> pattern) {
     return null;
   }
 
