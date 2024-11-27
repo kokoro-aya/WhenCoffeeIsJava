@@ -106,4 +106,16 @@ public class MatchExpressionTests {
 
     assertEquals("Bigger than one", actual);
   }
+
+  @Test
+  public void testMatchExpressionWithSimpleConditions() {
+    String expected = "Negative number";
+    String actual = new Match<Integer, String>(-5)
+            .when((number) -> number < 0, (n) -> "Negative number")
+            .when((number) -> number == 0, (n) -> "Zero")
+            .when((number) -> number > 0, (n) -> "Positive number")
+            .otherwise((n) -> "Unknown")
+            .execute();
+    assertEquals(expected, actual);
+  }
 }

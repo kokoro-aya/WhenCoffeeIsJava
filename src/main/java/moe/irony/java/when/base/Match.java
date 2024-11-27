@@ -54,6 +54,11 @@ public class Match<T, R> {
     return this;
   }
 
+  public Match<T, R> when(Predicate<T> condition, Function<T, R> fn) {
+    this.multiArmPattern.addPattern(new ConditionalPattern<>(condition, new OtherwisePattern<>(fn)));
+    return this;
+  }
+
   public Match<T, R> isNull(Supplier<R> fn) {
     this.multiArmPattern.addPattern(new NullPattern<>(fn));
     return this;
