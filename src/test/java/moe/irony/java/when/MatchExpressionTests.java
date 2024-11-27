@@ -1,12 +1,12 @@
 package moe.irony.java.when;
 
 import moe.irony.java.when.base.Match;
-import moe.irony.java.when.nat.Nat;
-import moe.irony.java.when.nat.O;
-import moe.irony.java.when.nat.S;
-import moe.irony.java.when.shapes.Circle;
-import moe.irony.java.when.shapes.Shape;
-import moe.irony.java.when.shapes.Square;
+import moe.irony.java.when.cases.nat.Nat;
+import moe.irony.java.when.cases.nat.O;
+import moe.irony.java.when.cases.nat.S;
+import moe.irony.java.when.cases.shapes.Circle;
+import moe.irony.java.when.cases.shapes.Shape;
+import moe.irony.java.when.cases.shapes.Square;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +32,7 @@ public class MatchExpressionTests {
             .is(Circle.class, (Circle circle) -> CIRCLE)
             .is(Square.class, (Square square) -> SQUARE)
             .otherwise((Shape shape) -> SHAPE)
-            .execute();
+            .get();
 
     assertEquals(CIRCLE, actual);
   }
@@ -44,7 +44,7 @@ public class MatchExpressionTests {
             .is(2, (two) -> two * 2)
             .is(3, (three) -> three * three * three)
             .otherwise((num) -> -1)
-            .execute();
+            .get();
 
     assertEquals(27, actual);
   }
@@ -55,7 +55,7 @@ public class MatchExpressionTests {
             .is(1, (one) -> "ONE")
             .isAmong(new Integer[]{ 2, 4, 6, 8 }, (x) -> "" + (x / 2))
             .is(9, (two) -> "nine")
-            .execute();
+            .get();
 
     assertEquals("3", actual);
   }
@@ -65,7 +65,7 @@ public class MatchExpressionTests {
     Boolean actual = new Match<String, Boolean>(null)
             .isNull(() -> false)
             .otherwise((value) -> true)
-            .execute();
+            .get();
 
     assertEquals(false, actual);
   }
@@ -76,7 +76,7 @@ public class MatchExpressionTests {
             .is("Five", (five) -> true)
             .isNull(() -> false)
             .otherwise((value) -> true)
-            .execute();
+            .get();
 
     assertEquals(false, actual);
   }
@@ -88,7 +88,7 @@ public class MatchExpressionTests {
             .isAmong(new Integer[]{ 2, 4, 6, 8 }, (x) -> x < 5, (x) -> "" + (x / 2))
             .is(9, (two) -> "nine")
             .otherwise((x) -> "other value")
-            .execute();
+            .get();
 
     assertEquals("other value", actual);
   }
@@ -100,7 +100,7 @@ public class MatchExpressionTests {
             .is(O.class, (o) -> "Zero")
             .is(S.class, (s) -> s.prev() instanceof O, (s) -> "Must be one")
             .otherwise((x) -> "Bigger than one")
-            .execute();
+            .get();
 
     assertEquals("Bigger than one", actual);
   }
@@ -113,7 +113,7 @@ public class MatchExpressionTests {
             .when((number) -> number == 0, (n) -> "Zero")
             .when((number) -> number > 0, (n) -> "Positive number")
             .otherwise((n) -> "Unknown")
-            .execute();
+            .get();
     assertEquals(expected, actual);
   }
 }

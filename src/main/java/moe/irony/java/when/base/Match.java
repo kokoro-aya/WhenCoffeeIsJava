@@ -17,6 +17,8 @@ public class Match<T, R> {
 
   private final @Nullable T valueToMatch;
 
+  private ChainedResult<R> cachedResult = null;
+
   public Match(@Nullable T object) {
     this.valueToMatch = object;
   }
@@ -69,16 +71,22 @@ public class Match<T, R> {
     return this;
   }
 
-  public R execute() {
-    PatternVisitor<T, R> visitor = new PatternMatcher<>(this.valueToMatch);
-
-    ChainedResult<R> result = this.multiArmPattern.accept(visitor);
-
-    if (result instanceof Result) {
-      return ((Result<R>) result).getResult();
-    } else {
-      return null;
+  public R get() {
+    if (this.cachedResult != null) {
+      return retrieveResult(this.cachedResult);
     }
+
+    PatternVisitor<T, R> visitor = new PatternMatcher<>(this.valueToMatch);
+    this.cachedResult = this.multiArmPattern.accept(visitor);
+    return retrieveResult(this.cachedResult);
+  }
+
+  private @Nullable R retrieveResult(ChainedResult<R> wrapper) {
+    if (wrapper instanceof Result) {
+      return ((Result<R>) wrapper).getResult();
+    }
+
+    return null;
   }
 
 }

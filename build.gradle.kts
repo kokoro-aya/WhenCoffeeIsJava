@@ -10,8 +10,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+val packageVersion = "1.0.0"
+
 group = "moe.irony.java.when"
-version = "0.9.0"
+version = packageVersion
 
 
 repositories {
@@ -32,7 +34,7 @@ mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 
-    coordinates("moe.irony.java.when", "when-coffee-is-java", "0.9.0")
+    coordinates("moe.irony.java.when", "when-coffee-is-java", version = packageVersion)
     pom {
         name.set("When the Coffee is Java")
         description.set("A type-safe Java 8 library to simulate the Kotlin \"when\" construct")

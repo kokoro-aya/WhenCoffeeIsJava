@@ -16,7 +16,7 @@ public class ConstantMatchExpressionTests {
             .is(2, i -> "two")
             .is(3, i -> "three")
             .otherwise(i -> String.valueOf((i + 1)))
-            .execute();
+            .get();
 
     assertEquals(expected, actual);
   }
@@ -31,7 +31,7 @@ public class ConstantMatchExpressionTests {
             .is(8, i -> "eight")
             .is(7, i -> "seven")
             .is(6, i -> "six")
-            .execute();
+            .get();
 
     assertEquals(expected, actual);
   }
