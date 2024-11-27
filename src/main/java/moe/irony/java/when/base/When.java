@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ * A derived simple class for side-effect-ful matching, can be used as an "advanced switch-case statement" <br>
+ * It doesn't support multiple patterns. The code is left here but may be removed/refactored in near future.
+ * @deprecated Use the unified `Match` interface instead
+ */
+@Deprecated
 public class When<T> {
 
     private final Map<Class<? extends T>, Consumer<? extends T>> arms = new HashMap<>();

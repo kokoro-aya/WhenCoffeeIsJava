@@ -16,21 +16,22 @@ Example code:
 interface Coffee {}
 
 class Java implements Coffee {}
-// Other eventual coffee classes
+class Cappuccino implements Coffee {}
+class Latte implements Coffee {}
+// Other eventually coffee classes
 
 Coffee someCoffee = new Java();
 
 String greeting = new Match<Coffee, String>(someCoffee)
-        .is(Java.class, (Java java) -> {
-          System.out.println("Today's coffee is Java");
-        })
+        .is(Java.class, (Java java) -> "Today's coffee is Java")
+        .is(new Cappuccino(), (Cappuccino cappuccino) -> "Tomorrow's coffee will be Cappuccino")
         // other arms
         .otherwise((Coffee coffee) -> {
           System.out.println("You have found a secret recipe!");
         })
-        .execute();
+        .get();
 
-// greeting will be "Today's coffee is Java"
+System.out.println(greeting); // greeting will be "Today's coffee is Java"
 ```
 
 Notice that due to rigidity of Java typing system and type annotation, you

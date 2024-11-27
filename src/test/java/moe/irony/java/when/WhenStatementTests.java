@@ -1,13 +1,13 @@
 package moe.irony.java.when;
 
 import moe.irony.java.when.base.When;
-import moe.irony.java.when.nat.Nat;
-import moe.irony.java.when.nat.O;
-import moe.irony.java.when.nat.S;
-import moe.irony.java.when.shapes.Circle;
-import moe.irony.java.when.shapes.Rectangle;
-import moe.irony.java.when.shapes.Shape;
-import moe.irony.java.when.shapes.Square;
+import moe.irony.java.when.cases.nat.Nat;
+import moe.irony.java.when.cases.nat.O;
+import moe.irony.java.when.cases.nat.S;
+import moe.irony.java.when.cases.shapes.Circle;
+import moe.irony.java.when.cases.shapes.Rectangle;
+import moe.irony.java.when.cases.shapes.Shape;
+import moe.irony.java.when.cases.shapes.Square;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
