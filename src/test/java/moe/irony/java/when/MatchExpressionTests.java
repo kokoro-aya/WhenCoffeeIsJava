@@ -9,6 +9,8 @@ import moe.irony.java.when.shapes.Shape;
 import moe.irony.java.when.shapes.Square;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MatchExpressionTests {
@@ -79,5 +81,29 @@ public class MatchExpressionTests {
             .execute();
 
     assertEquals(false, actual);
+  }
+
+  @Test
+  public void testMatchExpressionWithLiteralCondition() {
+    String actual = new Match<Integer, String>(6)
+            .is(1, (one) -> "ONE")
+            .isAmong(new Integer[]{ 2, 4, 6, 8 }, (x) -> x < 5, (x) -> "" + (x / 2))
+            .is(9, (two) -> "nine")
+            .otherwise((x) -> "other value")
+            .execute();
+
+    assertEquals("other value", actual);
+  }
+
+  @Test
+  public void testMatchExpressionWithNatCondition() {
+    Nat two = new S(new S(new O()));
+    String actual = new Match<Nat, String>(two)
+            .is(O.class, (o) -> "Zero")
+            .is(S.class, (s) -> s.prev() instanceof O, (s) -> "Must be one")
+            .otherwise((x) -> "Bigger than one")
+            .execute();
+
+    assertEquals("Bigger than one", actual);
   }
 }

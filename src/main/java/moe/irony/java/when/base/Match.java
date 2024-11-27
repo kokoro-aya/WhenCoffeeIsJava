@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class Match<T, R> {
@@ -32,6 +33,24 @@ public class Match<T, R> {
 
   public Match<T, R> isAmong(T[] values, Function<T, R> fn) {
     this.multiArmPattern.addPattern(new LiteralPattern<>(values, fn));
+    return this;
+  }
+
+  public <U extends T> Match<T, R> is(Class<U> clazz, Predicate<U> condition, Function<U, R> fn) {
+    ConditionalPattern<U, R> condPattern = new ConditionalPattern<>(condition, new ClassPattern<>(clazz, fn));
+    this.multiArmPattern.addPattern(condPattern);
+    return this;
+  }
+
+  public Match<T, R> is(@NotNull T value, Predicate<T> condition, Function<T, R> fn) {
+    ConditionalPattern<T, R> condPattern = new ConditionalPattern<>(condition, new LiteralPattern<>(value, fn));
+    this.multiArmPattern.addPattern(condPattern);
+    return this;
+  }
+
+  public Match<T, R> isAmong(T[] values, Predicate<T> condition, Function<T, R> fn) {
+    ConditionalPattern<T, R> condPattern = new ConditionalPattern<>(condition, new LiteralPattern<>(values, fn));
+    this.multiArmPattern.addPattern(condPattern);
     return this;
   }
 
