@@ -9,8 +9,6 @@ import moe.irony.java.when.shapes.Shape;
 import moe.irony.java.when.shapes.Square;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MatchExpressionTests {

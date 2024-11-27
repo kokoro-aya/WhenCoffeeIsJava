@@ -10,7 +10,5 @@ public interface PatternVisitor<T, R> {
   ChainedResult<R> visit(LiteralPattern<T, R> pattern);
   ChainedResult<R> visit(NullPattern<T, R> pattern);
   ChainedResult<R> visit(OtherwisePattern<T, R> pattern);
-  ChainedResult<R> visit(RangePattern<T, R> pattern);
-
   ChainedResult<R> visit(MultiArmPattern<T, R> pattern);
 }

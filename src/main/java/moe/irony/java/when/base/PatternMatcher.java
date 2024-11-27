@@ -5,6 +5,7 @@ import moe.irony.java.when.base.chain.Empty;
 import moe.irony.java.when.base.chain.Result;
 import moe.irony.java.when.base.patterns.*;
 import org.jetbrains.annotations.Nullable;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Objects;
@@ -81,11 +82,4 @@ public class PatternMatcher<T, R> implements  PatternVisitor<T, R> {
   public ChainedResult<R> visit(OtherwisePattern<T, R> pattern) {
     return new Result<>(pattern.getFunction().apply(this.matchedValue));
   }
-
-  @Override
-  public ChainedResult<R> visit(RangePattern<T, R> pattern) {
-    return null;
-  }
-
-
 }
