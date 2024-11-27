@@ -8,13 +8,9 @@
 # You can also reference a tag or branch, but the action may change without warning.
 
 name: Publish package to Maven Central Portal
-on:
-  pull_request:
-    types:
-      - closed
+on: [push]
 jobs:
   publish:
-    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     permissions:
       contents: read

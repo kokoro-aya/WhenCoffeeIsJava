@@ -5,7 +5,6 @@ import moe.irony.java.when.base.chain.Empty;
 import moe.irony.java.when.base.chain.Result;
 import moe.irony.java.when.base.patterns.*;
 import org.jetbrains.annotations.Nullable;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 import java.util.Objects;
